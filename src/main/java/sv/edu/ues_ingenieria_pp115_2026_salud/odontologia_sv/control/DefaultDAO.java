@@ -38,14 +38,9 @@ public abstract class DefaultDAO<T> implements DAOInterface<T>{
         }
         
         try{
-            EntityManager em=getEntityManager();
+           getEntityManager().persist(registro);
+           getEntityManager().flush();
             
-            if(em!=null){
-                em.persist(registro);
-                em.flush();
-            }else{
-                throw new IllegalStateException("No se puede persistir el registro");
-            }
         }catch(Exception ex){
             throw new IllegalStateException("Error al crear el registro "+ex);
         }
@@ -61,13 +56,11 @@ public abstract class DefaultDAO<T> implements DAOInterface<T>{
        }
        
         try {
-            EntityManager em=getEntityManager();
-            if(em==null){
-                throw new IllegalStateException("EntityManager no disponible");
-            }
+           
+           
             
-            T entidad=em.merge(registro);
-            em.flush();
+            T entidad=getEntityManager().merge(registro);
+            getEntityManager().flush();
             return entidad;
             
         } catch (Exception ex) {
@@ -84,16 +77,11 @@ public abstract class DefaultDAO<T> implements DAOInterface<T>{
         }
         
         try{
-            EntityManager em=getEntityManager();
-            
-            if(em!=null){
-                //verificar que el objeto a eliminar este gestionado
-                T entidad=em.merge(registro);
-                em.remove(entidad);
+          //verificar que el objeto a eliminar este gestionado
+                T entidad=getEntityManager().merge(registro);
+                getEntityManager().remove(entidad);
                 
-            }else{
-                throw new IllegalStateException("EntityManager no disponible");
-            }
+           
         
         }catch(Exception ex){
             throw new IllegalStateException("Error al eliminar el registro "+ex);
@@ -108,12 +96,9 @@ public abstract class DefaultDAO<T> implements DAOInterface<T>{
         }
         
         try{
-            EntityManager em=getEntityManager();
-            if(em==null){
-                throw new IllegalStateException("EntityManager no disponible");
-            }
+           
             
-            return em.find(entityClass, id);
+            return getEntityManager().find(entityClass, id);
         
         }catch(Exception ex){
             throw new IllegalStateException("Error al buscar por id "+ex);
@@ -155,9 +140,7 @@ public abstract class DefaultDAO<T> implements DAOInterface<T>{
     public int count() throws IllegalStateException {
         
          EntityManager em=getEntityManager();
-       if(em==null){
-           throw new IllegalStateException("EntityManager no disponible");
-       }
+       
        
        try{
           CriteriaBuilder cb=em.getCriteriaBuilder();
@@ -182,9 +165,7 @@ public abstract class DefaultDAO<T> implements DAOInterface<T>{
     public List<T> findAll() throws IllegalStateException {
         
         EntityManager em=getEntityManager();
-        if(em==null){
-            throw new IllegalStateException("EntityManager no disponible");
-        }
+
         
         try{
             CriteriaBuilder cb=em.getCriteriaBuilder();
@@ -199,12 +180,6 @@ public abstract class DefaultDAO<T> implements DAOInterface<T>{
         
 
     }
-    
-   
-    
-    
-    
-    
-    
+
     
 }
