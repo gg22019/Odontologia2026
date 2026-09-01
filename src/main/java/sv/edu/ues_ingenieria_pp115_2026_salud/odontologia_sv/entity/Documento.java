@@ -14,10 +14,7 @@ import jakarta.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.UUID;
 
-/**
- *
- * @author harry
- */
+
 @Entity
 @Table(name = "documento", catalog = "odontologia_sv", schema = "public")
 @NamedQueries({
@@ -50,7 +47,7 @@ public class Documento implements Serializable {
         this.idDocumento = idDocumento;
     }
 
-    public Object getIdDocumento() {
+    public UUID getIdDocumento() {
         return idDocumento;
     }
 

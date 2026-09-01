@@ -48,7 +48,7 @@ public class Examen implements Serializable {
         this.idExamen = idExamen;
     }
 
-    public Object getIdExamen() {
+    public UUID getIdExamen() {
         return idExamen;
     }
 

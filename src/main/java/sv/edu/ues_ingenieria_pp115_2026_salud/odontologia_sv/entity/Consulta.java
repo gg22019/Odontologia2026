@@ -59,7 +59,7 @@ public class Consulta implements Serializable {
         this.idConsulta = idConsulta;
     }
 
-    public Object getIdConsulta() {
+    public UUID getIdConsulta() {
         return idConsulta;
     }
 

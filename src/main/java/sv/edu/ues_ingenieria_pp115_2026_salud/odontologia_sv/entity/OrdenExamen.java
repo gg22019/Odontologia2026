@@ -51,7 +51,7 @@ public class OrdenExamen implements Serializable {
         this.idOrdenExamen = idOrdenExamen;
     }
 
-    public Object getIdOrdenExamen() {
+    public UUID getIdOrdenExamen() {
         return idOrdenExamen;
     }
 

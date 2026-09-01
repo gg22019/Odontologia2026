@@ -48,7 +48,7 @@ public class Rol implements Serializable {
         this.idRol = idRol;
     }
 
-    public Object getIdRol() {
+    public UUID getIdRol() {
         return idRol;
     }
 

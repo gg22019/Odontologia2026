@@ -50,7 +50,7 @@ public class MedioContacto implements Serializable {
         this.idMedioContacto = idMedioContacto;
     }
 
-    public Object getIdMedioContacto() {
+    public UUID getIdMedioContacto() {
         return idMedioContacto;
     }
 

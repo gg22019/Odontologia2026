@@ -57,7 +57,7 @@ public class PersonaRol implements Serializable {
         this.idPersonaRol = idPersonaRol;
     }
 
-    public Object getIdPersonaRol() {
+    public UUID getIdPersonaRol() {
         return idPersonaRol;
     }
 

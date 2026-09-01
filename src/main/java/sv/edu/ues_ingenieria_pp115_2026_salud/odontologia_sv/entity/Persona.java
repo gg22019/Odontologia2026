@@ -58,7 +58,7 @@ public class Persona implements Serializable {
         this.idPersona = idPersona;
     }
 
-    public Object getIdPersona() {
+    public UUID getIdPersona() {
         return idPersona;
     }
 

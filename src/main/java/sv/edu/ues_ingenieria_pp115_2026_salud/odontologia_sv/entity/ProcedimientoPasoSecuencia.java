@@ -44,7 +44,7 @@ public class ProcedimientoPasoSecuencia implements Serializable {
         this.idProcedimientoPasoSecuencia = idProcedimientoPasoSecuencia;
     }
 
-    public Object getIdProcedimientoPasoSecuencia() {
+    public UUID getIdProcedimientoPasoSecuencia() {
         return idProcedimientoPasoSecuencia;
     }
 

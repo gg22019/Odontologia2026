@@ -58,7 +58,7 @@ public class ExamenResultado implements Serializable {
         this.idExamenResultado = idExamenResultado;
     }
 
-    public Object getIdExamenResultado() {
+    public UUID getIdExamenResultado() {
         return idExamenResultado;
     }
 

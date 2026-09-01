@@ -50,7 +50,7 @@ public class TipoDocumento implements Serializable {
         this.idTipoDocumento = idTipoDocumento;
     }
 
-    public Object getIdTipoDocumento() {
+    public UUID getIdTipoDocumento() {
         return idTipoDocumento;
     }
 

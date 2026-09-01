@@ -46,7 +46,7 @@ public class Procedimiento implements Serializable {
         this.idProcedimiento = idProcedimiento;
     }
 
-    public Object getIdProcedimiento() {
+    public UUID getIdProcedimiento() {
         return idProcedimiento;
     }
 

@@ -16,10 +16,6 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.UUID;
 
-/**
- *
- * @author harry
- */
 @Entity
 @Table(name = "procedimiento_paso", catalog = "odontologia_sv", schema = "public")
 @NamedQueries({
@@ -55,7 +51,7 @@ public class ProcedimientoPaso implements Serializable {
         this.idProcedimientoPaso = idProcedimientoPaso;
     }
 
-    public Object getIdProcedimientoPaso() {
+    public UUID getIdProcedimientoPaso() {
         return idProcedimientoPaso;
     }
 

@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package sv.edu.ues_ingenieria_pp115_2026_salud.odontologia_sv.entity;
 
 import jakarta.persistence.Basic;
@@ -62,7 +59,7 @@ public class Clinica implements Serializable {
         this.nombre = nombre;
     }
 
-    public Object getIdClinica() {
+    public UUID getIdClinica() {
         return idClinica;
     }
 

@@ -50,7 +50,7 @@ public class ExamenTipoExamen implements Serializable {
         this.idExamenTipoExamen = idExamenTipoExamen;
     }
 
-    public Object getIdExamenTipoExamen() {
+    public UUID getIdExamenTipoExamen() {
         return idExamenTipoExamen;
     }
 
