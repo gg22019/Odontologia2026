@@ -1,0 +1,134 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="jakarta.faces.html"
+      xmlns:p="http://primefaces.org/ui"
+          
+      xmlns:g="jakarta.faces.composite/crud">
+
+
+    <h:head>
+        <title>Tipo de Examenes</title>
+    </h:head>
+
+    <h:body>
+
+   <p:panel>
+            <h:form id="formTable">
+                
+                <!-- Mensajes -->
+                <p:growl id="mensajes" showDetail="true"/>
+                
+                <!-- Botón Nuevo -->
+                <h:panelGroup>
+                    <p:commandButton value="Nuevo"
+                                     icon="pi pi-plus"
+                                     actionListener="#{tipoExamenModel.btnNuevoHandler(event)}"
+                                     update=":formRegistrar:panelDialogo :formTable:mensajes"
+                                     process="@this">
+                        <p:ajax oncomplete="PF('dialogoRegistro').show()"/>
+                    </p:commandButton>
+                </h:panelGroup>
+                
+                <!-- Tabla -->
+                <h:panelGroup>
+                    <p:dataTable id="tablaRegistros" 
+                                 value="#{tipoExamenModel.modelo}" 
+                                 var="r" 
+                                 lazy="true"
+                                 paginator="true" 
+                                 rows="#{tipoExamenModel.registrosPorPagina}"  
+                                 paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+                                 selectionMode="single"
+                                 selection="#{tipoExamenModel.registro}"
+                                 emptyMessage="No hay tipos de examen registrados">
+                        
+                        <p:ajax event="rowSelect" 
+                                listener="#{tipoExamenModel.onRowSelect}"
+                                update=":formRegistrar:panelDialogo :formTable:mensajes"
+                                oncomplete="PF('dialogoRegistro').show()"/>
+                        
+                        <!-- Columnas -->
+                        <p:column headerText="ID" sortBy="#{r.idTipoExamen}" style="width: 15%;">
+                            <h:outputText value="#{r.idTipoExamen}"/>
+                        </p:column>
+                        
+                        <p:column headerText="Nombre" sortBy="#{r.nombre}" filterBy="#{r.nombre}" style="width: 25%;">
+                            <h:outputText value="#{r.nombre}"/>
+                        </p:column>
+                        
+                        <p:column headerText="Observaciones" sortBy="#{r.observaciones}" style="width: 35%;">
+                            <h:outputText value="#{r.observaciones}"/>
+                        </p:column>
+                        
+                        <p:column headerText="Activo" sortBy="#{r.activo}" style="width: 15%; text-align: center;">
+                            <h:outputText value="#{r.activo ? 'Sí' : 'No'}"/>
+                        </p:column>
+                        
+                    </p:dataTable>
+                </h:panelGroup>
+                
+            </h:form>
+        </p:panel>
+        
+        <!-- ============================================= -->
+        <!-- DIÁLOGO                                        -->
+        <!-- ============================================= -->
+        <p:panel>
+            <h:form id="formRegistrar">
+                
+                <p:dialog id="dialogoRegistro"
+                          widgetVar="dialogoRegistro"
+                          header="#{tipoExamenModel.estado == 'CREAR' ? 'Nuevo Tipo de Examen' : 'Modificar Tipo de Examen'}"
+                          responsive="true" 
+                          modal="true" 
+                          width="700"
+                          showEffect="fade"
+                          hideEffect="fade">
+                    
+                    <p:outputPanel id="panelDialogo">
+                        
+                        <p:panelGrid columns="2" 
+                                     style="width: 100%;"
+                                     columnClasses="label,value">
+                            
+                            <p:outputLabel for="id" value="ID:" style="font-weight: bold;"/>
+                            <p:inputText id="id" 
+                                         value="#{tipoExamenModel.registro.idTipoExamen}" 
+                                         disabled="true"
+                                         style="width: 100%;"/>
+                            
+                            <p:outputLabel for="nombre" value="Nombre:" style="font-weight: bold;"/>
+                            <p:inputText id="nombre" 
+                                         value="#{tipoExamenModel.registro.nombre}" 
+                                         required="true"
+                                         requiredMessage="El nombre es obligatorio"
+                                         style="width: 100%;"/>
+                            
+                            <p:outputLabel for="observaciones" value="Observaciones:" style="font-weight: bold;"/>
+                            <p:inputText id="observaciones" 
+                                         value="#{tipoExamenModel.registro.observaciones}" 
+                                         style="width: 100%;"/>
+                            
+                            <!-- Activo -->
+                            <p:outputLabel for="activo" value="Activo:"/>
+                            <p:selectBooleanCheckbox id="activo" value="#{tipoExamenModel.registro.activo}"/>
+                                />
+                        </p:panelGrid>
+                    </p:outputPanel>
+                        
+                        <!-- Botones -->
+                        <g:botonesTop
+                            model="#{tipoExamenModel}"
+                            estado="#{tipoExamenModel.estado}"
+                            formTable="formTable"
+                            dialogoRegistro="dialogoRegistro"
+                            />
+                    
+                </p:dialog>
+                
+            </h:form>
+        </p:panel>
+        
+    </h:body>
+</html>

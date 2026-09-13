@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:cc="jakarta.faces.composite"
+      xmlns:h="jakarta.faces.html"
+      xmlns:p="primefaces">
+
+    <!-- INTERFACE  atributos que recibe-->3
+    <cc:interface>
+        <cc:attribute name="model" required="true"
+                       shortDescription="El bean del modelo (ej: tipoExamenModel)" />
+        
+        <cc:attribute name="formRegistrar" required="true"
+                      shortDescription="ID del formulario del diálogo (ej: formRegistrar)" />
+        
+        
+        <cc:attribute name="formTable" required="true"
+                      shortDescription="ID del formulario de mensajes (ej: formTable)"/>
+        
+        <cc:attribute name="dialogoRegistro"  required="true"
+                      shortDescription="widgetVar del diálogo (ej: dialogoRegistro)"/>
+        
+        <cc:attribute name="panelDialogo" required="true" />
+        
+        
+        
+        
+        
+    </cc:interface>
+
+    <!-- IMPLEMENTATION -->
+    <cc:implementation>
+        <h:panelGroup>
+            <p:commandButton value="Nuevo #{cc.attrs.model.nombreEntidad}"
+                             icon="pi pi-plus"
+                             actionListener="#{cc.attrs.model.btnNuevoHandler(event)}"
+                             update=":#{cc.attrs.formRegistrar}:#{cc.attrs.panelDialogo}"
+                             process="@this">
+                <p:ajax oncomplete="PF('#{cc.attrs.dialogoRegistro}').show()"/>
+            </p:commandButton>
+        </h:panelGroup>
+    </cc:implementation>
+</html>

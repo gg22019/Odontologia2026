@@ -17,10 +17,7 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.UUID;
 
-/**
- *
- * @author harry
- */
+
 @Entity
 @Table(name = "examen_resultado", catalog = "odontologia_sv", schema = "public")
 @NamedQueries({

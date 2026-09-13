@@ -38,12 +38,14 @@
         </dependency>
 
         <!-- Source: https://mvnrepository.com/artifact/org.eclipse.persistence/eclipselink -->
+        <!--
         <dependency>
             <groupId>org.eclipse.persistence</groupId>
             <artifactId>eclipselink</artifactId>
             <version>5.0.1</version>
             <scope>provided</scope>
         </dependency>
+        -->
         
         <!-- Source: https://mvnrepository.com/artifact/org.mockito/mockito-core -->
         <dependency>
@@ -85,6 +87,15 @@
             <scope>test</scope>
         
         
+        </dependency>
+        
+        <!-- Source: https://mvnrepository.com/artifact/org.primefaces/primefaces -->
+        <dependency>
+            <groupId>org.primefaces</groupId>
+            <artifactId>primefaces</artifactId>
+            <version>15.0.17</version>
+            <classifier>jakarta</classifier>
+            <scope>provided</scope>
         </dependency>
     
         <!-- Source: https://mvnrepository.com/artifact/org.mockito/mockito-junit-jupiter -->

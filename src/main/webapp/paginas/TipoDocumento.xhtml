@@ -1,0 +1,145 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="jakarta.faces.html"
+      xmlns:p="http://primefaces.org/ui"
+          
+      xmlns:g="jakarta.faces.composite/crud">
+    
+    <h:head>
+        <title>Tipo de Documento</title>
+    </h:head>
+    <h:body>
+        
+         <p:panel>
+            <h:form id="formTable">
+                
+                <!-- Mensajes -->
+                <p:growl id="mensajes" showDetail="true"/>
+                
+                <!-- Botón Nuevo -->
+                <g:botonNuevo
+                    model="#{tipoDocumentoModel}"
+                    formRegistrar="formRegistrar"
+                    panelDialogo="panelDialogo"
+                    formTable="formTable"
+                    dialogoRegistro="dialogoRegistro"
+                    />
+                
+                <!-- Tabla -->
+                <h:panelGroup>
+                    <p:dataTable id="tablaRegistros" 
+                                 value="#{tipoDocumentoModel.modelo}" 
+                                 var="r" 
+                                 paginator="true" 
+                                 rows="#{tipoDocumentoModel.registrosPorPagina}"  
+                                 paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+                                 selectionMode="single"
+                                 selection="#{tipoDocumentoModel.registro}"
+                                 emptyMessage="No hay registros">
+                        
+                        <!-- ✅ CORREGIDO: onRowSelect sin parámetros -->
+                        <p:ajax event="rowSelect" 
+                                listener="#{tipoDocumentoModel.onRowSelect}"
+                                update=":formRegistrar:panelDialogo :formTable:mensajes"
+                                oncomplete="PF('dialogoRegistro').show()"/>
+                        
+                        <p:column headerText="ID" sortBy="#{r.idTipoDocumento}">
+                            <h:outputText value="#{r.idTipoDocumento}"/>
+                        </p:column>
+                        
+                        <p:column headerText="Nombre" sortBy="#{r.nombre}" filterBy="#{r.nombre}">
+                            <h:outputText value="#{r.nombre}"/>
+                        </p:column>
+                        
+                        <p:column headerText="Indicaciones" sortBy="#{r.indicaciones}">
+                            <h:outputText value="#{r.indicaciones}" />
+                        </p:column>
+                        
+                        <p:column headerText="Expresión regular" sortBy="#{r.expresionRegular}">
+                            <h:outputText value="#{r.expresionRegular}"/>
+                        </p:column>
+                        
+                        <p:column headerText="Activo" sortBy="#{r.activo}">
+                            <h:outputText value="#{r.activo ? 'SI' : 'NO'}"/>
+                        </p:column>
+                        
+                    </p:dataTable>
+                </h:panelGroup>
+                
+            </h:form>
+        </p:panel>
+        
+        <!-- ============================================= -->
+        <!-- DIÁLOGO                                        -->
+        <!-- ============================================= -->
+        <p:panel>
+            <h:form id="formRegistrar">
+                
+                <p:dialog id="dialogoRegistro"
+                          widgetVar="dialogoRegistro"
+                          header="#{tipoDocumentoModel.estado == 'CREAR' ? 'Nuevo Tipo Documento' : 'Modificar Tipo Documento'}"
+                          responsive="true" 
+                          modal="true" 
+                          width="500"
+                          showEffect="fade"
+                          hideEffect="fade">
+                    
+                    <p:outputPanel id="panelDialogo">
+                        
+                        <p:panelGrid columns="2" 
+                                     style="width: 100%;"
+                                     columnClasses="label,value"
+                                     >
+                            
+                            <p:outputLabel for="id" value="ID:" style="font-weight: bold;"/>
+                            <p:inputText id="id" 
+                                         value="#{tipoDocumentoModel.registro.idTipoDocumento}" 
+                                         disabled="true"
+                                         style="width: 100%;"/>
+                            
+                            <p:outputLabel for="nombre" value="Nombre:" style="font-weight: bold;"/>
+                            <p:inputText id="nombre" 
+                                         value="#{tipoDocumentoModel.registro.nombre}" 
+                                         required="true"
+                                         requiredMessage="El nombre es obligatorio"
+                                         style="width: 100%;"/>
+                            
+                            <p:outputLabel for="indicaciones" value="Indicaciones:" style="font-weight: bold;"/>            
+                                         <p:inputTextarea id="indicaciones" 
+                                         value="#{tipoDocumentoModel.registro.indicaciones}" 
+                                         style="width: 100%;"/>
+                            
+                            <p:outputLabel for="expresionRegular" value="Expresión Regular:" style="font-weight: bold;"/>
+                            <p:inputText id="expresionRegular" 
+                                         value="#{tipoDocumentoModel.registro.expresionRegular}" 
+                                         style="width: 100%;"/>
+                            
+                            <p:outputLabel for="activo" value="Activo:" style="font-weight: bold;"/>
+                            <p:selectBooleanCheckbox id="activo" 
+                                                     value="#{tipoDocumentoModel.registro.activo}"/>
+                            
+                        </p:panelGrid>
+                        
+                        
+                        
+                        
+                        
+                        <!-- Botones -->
+                        <g:botonesTop
+                            model="#{tipoDocumentoModel}"
+                            estado="#{tipoDocumentoModel.estado}"
+                            formTable="formTable"
+                            dialogoRegistro="dialogoRegistro"
+                            />
+
+                        
+                    </p:outputPanel>
+                    
+                </p:dialog>
+                
+            </h:form>
+        </p:panel>
+        
+    </h:body>
+</html>

@@ -34,9 +34,8 @@ public class ConsultaProcedimiento implements Serializable {
     @Id
     @Column(name = "id_consulta_procedimiento")
     private UUID idConsultaProcedimiento;
-    @Lob
     @Column(name = "id_procedimiento")
-    private Object idProcedimiento;
+    private UUID idProcedimiento;
     @Column(name = "fecha_inicio")
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechaInicio;
@@ -71,7 +70,7 @@ public class ConsultaProcedimiento implements Serializable {
         return idProcedimiento;
     }
 
-    public void setIdProcedimiento(Object idProcedimiento) {
+    public void setIdProcedimiento(UUID idProcedimiento) {
         this.idProcedimiento = idProcedimiento;
     }
 

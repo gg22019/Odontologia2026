@@ -6,7 +6,6 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.Lob;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.NamedQueries;
 import jakarta.persistence.NamedQuery;
@@ -27,9 +26,8 @@ public class ProcedimientoPasoSecuencia implements Serializable {
     @Id
     @Column(name = "id_procedimiento_paso_secuencia")
     private UUID idProcedimientoPasoSecuencia;
-    @Lob
     @Column(name = "id_procedimiento_paso_referencia")
-    private Object idProcedimientoPasoReferencia;
+    private UUID idProcedimientoPasoReferencia;
     @Size(max = 20)
     @Column(name = "tipo_secuencia")
     private String tipoSecuencia;
@@ -52,11 +50,11 @@ public class ProcedimientoPasoSecuencia implements Serializable {
         this.idProcedimientoPasoSecuencia = idProcedimientoPasoSecuencia;
     }
 
-    public Object getIdProcedimientoPasoReferencia() {
+    public UUID getIdProcedimientoPasoReferencia() {
         return idProcedimientoPasoReferencia;
     }
 
-    public void setIdProcedimientoPasoReferencia(Object idProcedimientoPasoReferencia) {
+    public void setIdProcedimientoPasoReferencia(UUID idProcedimientoPasoReferencia) {
         this.idProcedimientoPasoReferencia = idProcedimientoPasoReferencia;
     }
 

@@ -26,7 +26,7 @@ public class Procedimiento implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @Column(name = "id_procedimiento")
+    @Column(name = "id_procedimiento", columnDefinition = "uuid")
     private UUID idProcedimiento;
     @Size(max = 155)
     @Column(name = "nombre")
