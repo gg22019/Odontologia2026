@@ -8,36 +8,27 @@
     <!-- INTERFACE  atributos que recibe-->3
     <cc:interface>
         <cc:attribute name="model" required="true"
-                       shortDescription="El bean del modelo (ej: tipoExamenModel)" />
+                      shortDescription="El bean del modelo (ej: tipoDocumentoModel)" />
         
-        <cc:attribute name="formRegistrar" required="true"
-                      shortDescription="ID del formulario del diálogo (ej: formRegistrar)" />
-        
-        
-        <cc:attribute name="formTable" required="true"
-                      shortDescription="ID del formulario de mensajes (ej: formTable)"/>
-        
-        <cc:attribute name="dialogoRegistro"  required="true"
-                      shortDescription="widgetVar del diálogo (ej: dialogoRegistro)"/>
-        
-        <cc:attribute name="panelDialogo" required="true" />
-        
-        
-        
-        
-        
+        <cc:attribute name="formPrincipal" required="true"
+                      shortDescription="ID del formulario principal (ej: formTable)" />
     </cc:interface>
+        
+        
+        
+        
+        
+
 
     <!-- IMPLEMENTATION -->
-    <cc:implementation>
+   <cc:implementation>
         <h:panelGroup>
-            <p:commandButton value="Nuevo #{cc.attrs.model.nombreEntidad}"
+            <p:commandButton value="#{crud['boton.nuevo']} #{cc.attrs.model.nombreEntidad}"
                              icon="pi pi-plus"
                              actionListener="#{cc.attrs.model.btnNuevoHandler(event)}"
-                             update=":#{cc.attrs.formRegistrar}:#{cc.attrs.panelDialogo}"
-                             process="@this">
-                <p:ajax oncomplete="PF('#{cc.attrs.dialogoRegistro}').show()"/>
-            </p:commandButton>
+                             update=":#{cc.attrs.formPrincipal}"
+                             process="@this" />
         </h:panelGroup>
     </cc:implementation>
+    
 </html>
