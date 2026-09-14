@@ -5,63 +5,64 @@
       xmlns:p="http://primefaces.org/ui"
           
       xmlns:g="jakarta.faces.composite/crud">
-    
+
+
     <h:head>
-        <title>Tipo de Documento</title>
+        <title>Tipo de Examenes</title>
     </h:head>
+
     <h:body>
-        
-         <p:panel>
+
+   <p:panel>
             <h:form id="formTable">
                 
                 <!-- Mensajes -->
                 <p:growl id="mensajes" showDetail="true"/>
                 
                 <!-- Botón Nuevo -->
-                <g:botonNuevo
-                    model="#{tipoDocumentoModel}"
-                    formRegistrar="formRegistrar"
-                    panelDialogo="panelDialogo"
-                    formTable="formTable"
-                    dialogoRegistro="dialogoRegistro"
-                    />
+                <h:panelGroup>
+                    <p:commandButton value="Nuevo"
+                                     icon="pi pi-plus"
+                                     actionListener="#{tipoExamenModel.btnNuevoHandler(event)}"
+                                     update=":formRegistrar:panelDialogo :formTable:mensajes"
+                                     process="@this">
+                        <p:ajax oncomplete="PF('dialogoRegistro').show()"/>
+                    </p:commandButton>
+                </h:panelGroup>
                 
                 <!-- Tabla -->
                 <h:panelGroup>
                     <p:dataTable id="tablaRegistros" 
-                                 value="#{tipoDocumentoModel.modelo}" 
+                                 value="#{tipoExamenModel.modelo}" 
                                  var="r" 
+                                 lazy="true"
                                  paginator="true" 
-                                 rows="#{tipoDocumentoModel.registrosPorPagina}"  
+                                 rows="#{tipoExamenModel.registrosPorPagina}"  
                                  paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
                                  selectionMode="single"
-                                 selection="#{tipoDocumentoModel.registro}"
-                                 emptyMessage="No hay registros">
+                                 selection="#{tipoExamenModel.registro}"
+                                 emptyMessage="No hay tipos de examen registrados">
                         
-                        <!-- ✅ CORREGIDO: onRowSelect sin parámetros -->
                         <p:ajax event="rowSelect" 
-                                listener="#{tipoDocumentoModel.onRowSelect}"
+                                listener="#{tipoExamenModel.onRowSelect}"
                                 update=":formRegistrar:panelDialogo :formTable:mensajes"
                                 oncomplete="PF('dialogoRegistro').show()"/>
                         
-                        <p:column headerText="ID" sortBy="#{r.idTipoDocumento}">
-                            <h:outputText value="#{r.idTipoDocumento}"/>
+                        <!-- Columnas -->
+                        <p:column headerText="ID" sortBy="#{r.idTipoExamen}" style="width: 15%;">
+                            <h:outputText value="#{r.idTipoExamen}"/>
                         </p:column>
                         
-                        <p:column headerText="Nombre" sortBy="#{r.nombre}" filterBy="#{r.nombre}">
+                        <p:column headerText="Nombre" sortBy="#{r.nombre}" filterBy="#{r.nombre}" style="width: 25%;">
                             <h:outputText value="#{r.nombre}"/>
                         </p:column>
                         
-                        <p:column headerText="Indicaciones" sortBy="#{r.indicaciones}">
-                            <h:outputText value="#{r.indicaciones}" />
+                        <p:column headerText="Observaciones" sortBy="#{r.observaciones}" style="width: 35%;">
+                            <h:outputText value="#{r.observaciones}"/>
                         </p:column>
                         
-                        <p:column headerText="Expresión regular" sortBy="#{r.expresionRegular}">
-                            <h:outputText value="#{r.expresionRegular}"/>
-                        </p:column>
-                        
-                        <p:column headerText="Activo" sortBy="#{r.activo}">
-                            <h:outputText value="#{r.activo ? 'SI' : 'NO'}"/>
+                        <p:column headerText="Activo" sortBy="#{r.activo}" style="width: 15%; text-align: center;">
+                            <h:outputText value="#{r.activo ? 'Sí' : 'No'}"/>
                         </p:column>
                         
                     </p:dataTable>
@@ -78,10 +79,10 @@
                 
                 <p:dialog id="dialogoRegistro"
                           widgetVar="dialogoRegistro"
-                          header="#{tipoDocumentoModel.estado == 'CREAR' ? 'Nuevo Tipo Documento' : 'Modificar Tipo Documento'}"
+                          header="#{tipoExamenModel.estado == 'CREAR' ? 'Nuevo Tipo de Examen' : 'Modificar Tipo de Examen'}"
                           responsive="true" 
                           modal="true" 
-                          width="500"
+                          width="700"
                           showEffect="fade"
                           hideEffect="fade">
                     
@@ -89,52 +90,40 @@
                         
                         <p:panelGrid columns="2" 
                                      style="width: 100%;"
-                                     columnClasses="label,value"
-                                     >
+                                     columnClasses="label,value">
                             
                             <p:outputLabel for="id" value="ID:" style="font-weight: bold;"/>
                             <p:inputText id="id" 
-                                         value="#{tipoDocumentoModel.registro.idTipoDocumento}" 
+                                         value="#{tipoExamenModel.registro.idTipoExamen}" 
                                          disabled="true"
                                          style="width: 100%;"/>
                             
                             <p:outputLabel for="nombre" value="Nombre:" style="font-weight: bold;"/>
                             <p:inputText id="nombre" 
-                                         value="#{tipoDocumentoModel.registro.nombre}" 
+                                         value="#{tipoExamenModel.registro.nombre}" 
                                          required="true"
                                          requiredMessage="El nombre es obligatorio"
                                          style="width: 100%;"/>
                             
-                            <p:outputLabel for="indicaciones" value="Indicaciones:" style="font-weight: bold;"/>            
-                                         <p:inputTextarea id="indicaciones" 
-                                         value="#{tipoDocumentoModel.registro.indicaciones}" 
+                            <p:outputLabel for="observaciones" value="Observaciones:" style="font-weight: bold;"/>
+                            <p:inputText id="observaciones" 
+                                         value="#{tipoExamenModel.registro.observaciones}" 
                                          style="width: 100%;"/>
                             
-                            <p:outputLabel for="expresionRegular" value="Expresión Regular:" style="font-weight: bold;"/>
-                            <p:inputText id="expresionRegular" 
-                                         value="#{tipoDocumentoModel.registro.expresionRegular}" 
-                                         style="width: 100%;"/>
-                            
-                            <p:outputLabel for="activo" value="Activo:" style="font-weight: bold;"/>
-                            <p:selectBooleanCheckbox id="activo" 
-                                                     value="#{tipoDocumentoModel.registro.activo}"/>
-                            
+                            <!-- Activo -->
+                            <p:outputLabel for="activo" value="Activo:"/>
+                            <p:selectBooleanCheckbox id="activo" value="#{tipoExamenModel.registro.activo}"/>
+                                />
                         </p:panelGrid>
-                        
-                        
-                        
-                        
+                    </p:outputPanel>
                         
                         <!-- Botones -->
                         <g:botonesTop
-                            model="#{tipoDocumentoModel}"
-                            estado="#{tipoDocumentoModel.estado}"
+                            model="#{tipoExamenModel}"
+                            estado="#{tipoExamenModel.estado}"
                             formTable="formTable"
                             dialogoRegistro="dialogoRegistro"
                             />
-
-                        
-                    </p:outputPanel>
                     
                 </p:dialog>
                 

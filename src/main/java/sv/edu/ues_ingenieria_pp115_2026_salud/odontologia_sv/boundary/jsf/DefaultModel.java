@@ -143,9 +143,6 @@ public abstract class DefaultModel<T> implements Serializable {
         try {
             getDao().eliminar(registroSeleccionado);
             enviarMensaje(getText("model.crud.exito"), getText("model.crud.eliminado"), FacesMessage.SEVERITY_INFO);
-            
-            this.estado=ESTADO_CRUD.NADA;
-            this.registro=null;
         } catch (Exception ex) {
             enviarMensaje(getText("model.crud.error"), getText("model.crud.error.eliminar"), FacesMessage.SEVERITY_ERROR);
             ex.printStackTrace();
