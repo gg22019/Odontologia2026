@@ -7,49 +7,45 @@
       xmlns:f="jakarta.faces.core">
 
     <!-- INTERFACE -->
-    <cc:interface>
+   <cc:interface>
         <cc:attribute name="model" required="true"/>
         <cc:attribute name="estado" required="true"/>
-        <cc:attribute name="formTable" required="true"/>
-        <cc:attribute name="dialogoRegistro" required="true"/>
+        <cc:attribute name="formPrincipal" required="true"/>
     </cc:interface>
 
-    <!-- IMPLEMENTATION -->
-    <cc:implementation>
+ <cc:implementation>
         <h:panelGroup style="display: flex; justify-content: flex-end; gap: 10px; margin-top: 15px;">
 
             <!-- Botón Guardar -->
-            <p:commandButton value="Guardar" 
+            <p:commandButton value="#{crud['boton.Guardar']}" 
                              actionListener="#{cc.attrs.model.btnCrearHandler(event)}"
                              icon="pi pi-save"
                              styleClass="ui-button-success"
                              process="@form"
-                             update=":#{cc.attrs.formTable}:tablaRegistros :#{cc.attrs.formTable}:mensajes">
-                <p:ajax oncomplete="if (!args.validationFailed) { PF('#{cc.attrs.dialogoRegistro}').hide(); }"/>
-            </p:commandButton>
+                             update=":#{cc.attrs.formPrincipal}" />
 
             <!-- Botón Eliminar -->
-            <p:commandButton value="Eliminar"
+            <p:commandButton value="#{crud['boton.Eliminar']}"
                              icon="pi pi-trash"
                              styleClass="ui-button-danger"
                              actionListener="#{cc.attrs.model.btnEliminarHandler(cc.attrs.model.registro)}"
-                             update=":#{cc.attrs.formTable}:tablaRegistros :#{cc.attrs.formTable}:mensajes"
-                             rendered="#{cc.attrs.estado == 'MODIFICAR'}"
-                             onclick="if (!confirm('¿Está seguro de eliminar este registro?')) return false;">
-                <p:ajax oncomplete="PF('#{cc.attrs.dialogoRegistro}').hide();"/>
+                             update=":#{cc.attrs.formPrincipal}"
+                             rendered="#{cc.attrs.estado == 'MODIFICAR'}">
+                <p:confirm header="#{crud['model.crud.advertencia']}" 
+                           message="#{crud['model.crud.confirmar.eliminar']}" 
+                           icon="pi pi-exclamation-triangle" />
             </p:commandButton>
 
             <!-- Botón Cancelar -->
-            <p:commandButton value="Cancelar" 
+            <p:commandButton value="#{crud['boton.cancelar']}" 
                              actionListener="#{cc.attrs.model.btnCancelarHandler(event)}"
                              icon="pi pi-times"
                              styleClass="ui-button-secondary"
                              process="@this"
-                             update=":#{cc.attrs.formTable}:tablaRegistros :#{cc.attrs.formTable}:mensajes">
-                <p:ajax oncomplete="PF('#{cc.attrs.dialogoRegistro}').hide()"/>
-            </p:commandButton>
+                             immediate="true"
+                             update=":#{cc.attrs.formPrincipal}" />
 
         </h:panelGroup>
     </cc:implementation>
-
+    
 </html>
