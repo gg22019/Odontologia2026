@@ -21,7 +21,7 @@ public class SesionUsuario implements Serializable{
     // Idioma actualmente seleccionado (nombre legible)
     private String idiomaSeleccionado = "es";
     
-    // ✅ Locale actual (persiste en la sesión) 
+    // Locale actual (persiste en la sesión) 
     private Locale locale = new Locale("es", "SV");
 
     @Inject
@@ -52,10 +52,10 @@ public class SesionUsuario implements Serializable{
                     facesContext.getViewRoot().setLocale(nuevoLocale);
                 }
                 
-                System.out.println("✅ Idioma cambiado a: " + nuevoLocale);
+                System.out.println("Idioma cambiado a: " + nuevoLocale);
             }
         } catch (Exception ex) {
-            System.err.println("❌ Error al cambiar idioma: " + ex.getMessage());
+            System.err.println(" Error al cambiar idioma: " + ex.getMessage());
             ex.printStackTrace();
         }
     }
