@@ -2,14 +2,115 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="jakarta.faces.html"
-       xmlns:p="http://primefaces.org/ui"
+      xmlns:p="http://primefaces.org/ui"
       xmlns:f="jakarta.faces.core"
       xmlns:ui="jakarta.faces.facelets"
       >
     <h:head>
-        <title></title>
+        <title> <ui:insert name="titulo"></ui:insert></title>
     </h:head>
     <h:body>
-        Hello from Facelets
+         <f:view locale="#{sesionUsuario.locale}">
+
+             <!-- autoUpdate se en carga de actualizar en cualquier peticion ajax -->
+             <form id="frmMensajes">
+                 <p:growl showDetail="true" life="5000">
+                     <p:autoUpdate/>
+                 </p:growl>
+             </form>
+             
+             
+             
+             
+            <!-- ============================================= -->
+            <!-- GRID PRINCIPAL (SIN ESTILOS INLINE)          -->
+            <!-- ============================================= -->
+            <div class="ui-g">
+
+                <!-- ============================================= -->
+                <!-- 1. CABECERA (ui-g-12)                        -->
+                <!-- Logo + Título + Usuario                       -->
+                <!-- ============================================= -->
+                <div class="ui-g-12">
+                    <div class="ui-g">
+                        
+                        <!-- Logo -->
+                        <div class="ui-g-12 ui-md-4">
+                            <p:graphicImage name="Logo.png" library="images" height="80"/>
+                        </div>
+                        
+                        <!-- Título -->
+                        <div class="ui-g-12 ui-md-4">
+                            <h2>
+                                <p:outputPanel id="tituloApp">
+                                    <ui:insert name="titulo">
+                                       titulo
+                                    </ui:insert>
+                                </p:outputPanel>
+                            </h2>
+                        </div>
+                        
+                        <!-- Usuario -->
+                        <div class="ui-g-12 ui-md-4">
+                            <span>
+                                #{crud['app.usuario']}: Admin
+                            </span>
+                        </div>
+                        
+                    </div>
+                </div>
+
+                <!-- ============================================= -->
+                <!-- 2. MENÚ LATERAL (ui-g-12 ui-md-2)            -->
+                <!-- ============================================= -->
+                <div class="ui-g-12 ui-md-2">
+                    
+                    <h:form id="frmMenuPrincipal">
+                        <h:outputText value="Menú próximamente"/>
+                    </h:form>
+                    
+                </div>
+
+                <!-- ============================================= -->
+                <!-- 3. CONTENIDO PRINCIPAL (ui-g-12 ui-md-10)    -->
+                <!-- Selector de idioma + Contenido               -->
+                <!-- ============================================= -->
+                <div class="ui-g-12 ui-md-10">
+                    
+                    <!-- Selector de idioma -->
+                    <h:form id="frmSeleccionarIdioma">
+                        <p:selectOneMenu value="#{sesionUsuario.idiomaSeleccionado}">
+                            <f:selectItems value="#{sesionUsuario.idiomasDisponibles.entrySet()}"
+                                           var="entry"
+                                           itemLabel="#{entry.key}"
+                                           itemValue="#{entry.key}"/>
+                            <p:ajax event="change"
+                                    listener="#{sesionUsuario.cambiarIdioma}"
+                                    update="@all"/>
+                        </p:selectOneMenu>
+                    </h:form>
+                    
+                   
+                    
+                    <!-- Contenido dinámico -->
+                    <ui:insert name="contenido">
+                        contenido principal
+                    </ui:insert>
+                    
+                    
+                </div>
+
+                <!-- ============================================= -->
+                <!-- 4. FOOTER (ui-g-12)                          -->
+                <!-- ============================================= -->
+                <div class="ui-g-12">
+                    
+                    <footer>© Derechos reservados para OdontologiaSV </footer>
+                    
+                </div>
+
+            </div>
+
+        </f:view>
     </h:body>
 </html>

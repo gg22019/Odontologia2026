@@ -5,19 +5,19 @@
       xmlns:p="http://primefaces.org/ui"
 
       xmlns:g="jakarta.faces.composite/crud"
-      xmlns:f="jakarta.faces.core">
-    <f:view locale="#{sesionUsuario.locale}">
+      xmlns:f="jakarta.faces.core"
+      xmlns:ui="jakarta.faces.facelets">
+
+    <!-- Usar la plantilla -->
+    <ui:composition template="/WEB-INF/plantillas/PlantillaPrincipal.xhtml">
+    
         
-     
+        <ui:define name="titulo"> #{crud['tipoDocumento.titulo']}</ui:define>
         
-        <h:head>
-            <title>Tipo de Documento</title>
-        </h:head>
-        <h:body>
+        <ui:define name="contenido">
+        
             <h:form id="formTable">
 
-                <!-- Mensajes -->
-                <p:growl id="mensajes" showDetail="true"/>
 
                 <!-- ========================================================================= -->
                 <!-- VISTA TABLA (Renderizada cuando estado == 'NADA')                         -->
@@ -33,15 +33,7 @@
                             />
 
                         <!-- Selección de Idioma -->
-                        <p:selectOneMenu value="#{sesionUsuario.idiomaSeleccionado}" style="width: 120px;">
-                            <f:selectItems value="#{sesionUsuario.idiomasDisponibles.entrySet()}"
-                                           var="entry"
-                                           itemLabel="#{entry.key}"
-                                           itemValue="#{entry.key}"/>
-                            <p:ajax event="change"
-                                    listener="#{sesionUsuario.cambiarIdioma}"
-                                    update=":formTable"/>
-                        </p:selectOneMenu>
+                       
                     </div>
 
                     <!-- Tabla de Registros -->
@@ -139,10 +131,9 @@
                 </p:confirmDialog>
 
             </h:form>
+        </ui:define>
 
-        </h:body>
             
+            </ui:composition>
             
-            
-    </f:view>
 </html>

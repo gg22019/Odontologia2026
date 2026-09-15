@@ -15,21 +15,21 @@
 
  <cc:implementation>
         <h:panelGroup style="display: flex; justify-content: flex-end; gap: 10px; margin-top: 15px;">
-
+            <p:growl id="growl" showDetail="true" life="5000"/>
             <!-- Botón Guardar -->
             <p:commandButton value="#{crud['boton.Guardar']}" 
                              actionListener="#{cc.attrs.model.btnCrearHandler(event)}"
                              icon="pi pi-save"
                              styleClass="ui-button-success"
                              process="@form"
-                             update=":#{cc.attrs.formPrincipal}" />
+                             update=":#{cc.attrs.formPrincipal} :frmMensajes" />
 
             <!-- Botón Eliminar -->
             <p:commandButton value="#{crud['boton.Eliminar']}"
                              icon="pi pi-trash"
                              styleClass="ui-button-danger"
                              actionListener="#{cc.attrs.model.btnEliminarHandler(cc.attrs.model.registro)}"
-                             update=":#{cc.attrs.formPrincipal}"
+                             update=":#{cc.attrs.formPrincipal} :frmMensajes"
                              rendered="#{cc.attrs.estado == 'MODIFICAR'}">
                 <p:confirm header="#{crud['model.crud.advertencia']}" 
                            message="#{crud['model.crud.confirmar.eliminar']}" 
